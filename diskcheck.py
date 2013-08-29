@@ -12,7 +12,7 @@ print "The partition mounted on /dev/sda1 is %s full" % (percent)
 
 usage_int = int(percent.replace("%", ""))
 
-if usage_int > 20:
+if usage_int > 80:
     print "sending email to Ben informing him his Blog is about o explode"
     #call sendgrid to email someone
 
