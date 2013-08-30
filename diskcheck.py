@@ -36,18 +36,19 @@ if usage_int > 0:
 
     username = "random@readyforzero.com"
     password = "GETsendgrid123"
+    smtp = SMTP()
 
 
     print "sending email to Ben informing him his Blog is about to explode"
     try:
-        SMTP.connect('smtp.sendgrid.net', 587)
-        SMTP.login(username, password)
-        SMTP.sendmail(sender, receivers, message)
+        smtp.connect('smtp.sendgrid.net', 587)
+        smtp.login(username, password)
+        smtp.sendmail(sender, receivers, message)
         print "Successfully sent email"
     except:
         print "Error: unable to send email"
     finally:
-        SMTP.quit()
+        smtp.quit()
 
 else:
     print "Disk still has plenty of room!"
