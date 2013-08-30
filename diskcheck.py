@@ -30,7 +30,7 @@ if usage_int > 0:
     message = """From: From RFZ Blog Machine <help@readyforzero.com>
     To: bobby <bobby@readyforzero.com>
     Subject: Blog Machine disk usage Warning
-
+    
     This email is a friendly heads up that the Disk on the Blog machine is nearly full. Tell Ben to stop wiriting so much!
     """
 
@@ -41,12 +41,14 @@ if usage_int > 0:
 
     print "sending email to Ben informing him his Blog is about to explode"
     try:
+	#smtp.set_debuglevel(True)
         smtp.connect('smtp.sendgrid.net', 587)
         smtp.login(username, password)
-        smtp.sendmail(sender, receivers, message)
+        smtp.sendmail(sender, recievers, message)
         print "Successfully sent email"
-    except:
+    except Exception as whut:
         print "Error: unable to send email"
+	print whut
     finally:
         smtp.quit()
 
