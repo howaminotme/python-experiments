@@ -5,6 +5,11 @@
 import subprocess
 from smtplib import SMTP
 import argparse
+import time
+
+
+now = time.localtime()
+print now.tm_min
 
 #allows for arguments to be passed when invoking script
 parser = argparse.ArgumentParser()
