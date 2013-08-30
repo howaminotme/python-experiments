@@ -25,21 +25,19 @@ usage_int = int(percent.replace("%", ""))
 if usage_int > 0:
 
     sender = "help@readyforzero.com"
-    recievers = ["bobby@readyforzero.com"]
+    recievers = "bobby@readyforzero.com"
+    subject = "Disk almost full!"
+    stupid = """%"""
 
-    message = """From: From RFZ Blog Machine <help@readyforzero.com>
-    To: bobby <bobby@readyforzero.com>
-    Subject: Blog Machine disk usage Warning
-    
-    This email is a friendly heads up that the Disk on the Blog machine is nearly full. Tell Ben to stop wiriting so much!
-    """
+    message = """From:RFZ Blog Machine %s\r\nTo: Eng %s\r\nSubject: %s\r\n
+    This email is a friendly heads up that the disk on the Blog machine is nearly full. It is currently %s%s full.""" % (sender, recievers, subject, usage_int, stupid)
 
     username = "random@readyforzero.com"
     password = "GETsendgrid123"
     smtp = SMTP()
 
 
-    print "sending email to Ben informing him his Blog is about to explode"
+    print "Sending email to Ben informing him his Blog is about to explode"
     try:
 	#smtp.set_debuglevel(True)
         smtp.connect('smtp.sendgrid.net', 587)
