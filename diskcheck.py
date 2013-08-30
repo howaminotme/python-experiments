@@ -39,10 +39,10 @@ if usage_int > int(args.threshold):
     subject = "Disk almost full!"
 
     message = """From:RFZ Blog Machine %s\r\nTo: Eng %s\r\nSubject: %s\r\n
-    This email is a friendly heads up that the disk on the Blog machine is nearly full. The partition or disk mounted at %s currently %s%s full.""" % (sender, recievers, subject, args.path, usage_int, stupid)
+    This email is a friendly heads up that the disk on the Blog machine is nearly full. The partition or disk mounted at %s is currently %s%s full.""" % (sender, recievers, subject, args.path, usage_int, stupid)
 
-    username = "random@readyforzero.com"
-    password = "GETsendgrid123"
+    username = "rfzblogmachine"
+    password = "diskcheck"
     smtp = SMTP()
 
 
