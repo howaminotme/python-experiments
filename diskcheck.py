@@ -52,8 +52,8 @@ while truth == 1: #!! can just say 'while True:'
     #funciton for taking action once threshold is reached - goal is to email someone if disk usage exceeds the threshold passed
     if usage_int > int(opts.threshold):
 
-        sender = "help+noreply@readyforzero.com"
-        recievers = "bobby@readyforzero.com"
+        sender = "<help+noreply@readyforzero.com>"
+        recievers = "<engineering@readyforzero.com>"
         subject = "Disk almost full!"
 
         message = """From:RFZ Blog Machine %s\r\nTo: Eng %s\r\nSubject: %s\r\n
