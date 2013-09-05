@@ -66,7 +66,7 @@ while truth == 1: #!! can just say 'while True:'
 
         print "Sending email to Ben informing him his Blog is about to explode"
         try:
-            smtp.set_debuglevel(True)
+            #smtp.set_debuglevel(True)
             smtp.connect('smtp.sendgrid.net', 587)
             smtp.starttls()
             smtp.login(username, password)
