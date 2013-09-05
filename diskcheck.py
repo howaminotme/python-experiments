@@ -8,7 +8,7 @@ import argparse
 import time
 
 
-now = time.localtime()
+now = time.localtime() #!! is this necessary?
 #print  now.tm_min
 
 #allows for arguments to be passed when invoking script
@@ -16,16 +16,16 @@ parser = argparse.ArgumentParser()
 parser.add_argument("path")
 parser.add_argument("threshold")
 args = parser.parse_args()
-stupid = """%"""
+stupid = """%""" #!! stupid?
 truth = 1
 #insert a loop to check every hour
 
-while truth == 1:
+while truth == 1: #!! can just say 'while True:'
 
     print "Checking partition mounted at: %s, against a fill threshold of %s%s" % (args.path, args.threshold, stupid)
 
 
-#check status of disk / partition with "df" command. Evaluate return.
+#check status of disk / partition with "df" command. Evaluate return. #!! comments should be indented at same level as code
 
     df = subprocess.Popen(["df", args.path], stdout=subprocess.PIPE)
 
@@ -44,7 +44,7 @@ while truth == 1:
 #funciton for taking action once threshold is reached - goal is to email someone if disk usage exceeds the threshold passed
     if usage_int > int(args.threshold):
 
-        sender = "help@readyforzero.com"
+        sender = "help@readyforzero.com" #!! to reduce email in sbox, can you use help+noreply@readyforzero.com
         recievers = "bobby@readyforzero.com"
         subject = "Disk almost full!"
 
@@ -60,7 +60,7 @@ while truth == 1:
         try:
             #smtp.set_debuglevel(True)
             smtp.connect('smtp.sendgrid.net', 587)
-            smtp.login(username, password)
+            smtp.login(username, password) #!! you should use the ttls handshake before sending creds - otherwise they are sent in plaintext. see mailer.py.
             smtp.sendmail(sender, recievers, message)
             print "Successfully sent email"
         except Exception as whut:
