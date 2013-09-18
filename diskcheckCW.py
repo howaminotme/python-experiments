@@ -29,7 +29,7 @@ for lines in disklist[1:-1]:
 
 # pull out partitians that are to be ignored
 
-if len(ignore) > 0:
+if ignore:
     print "Ignoring partitians %s" % (ignore)
     for i in ignore:
         del fillrates[i]
