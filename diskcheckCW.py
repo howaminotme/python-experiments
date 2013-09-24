@@ -35,23 +35,23 @@ while True:
         if usage_int > 0:
             fillrates[part[0]] = usage_int
 
-    # pull out partitians that are to be ignored
+    # pull out partitions that are to be ignored
 
     if ignore:
-        print "Ignoring partitians %s" % (ignore)
+        print "Ignoring partitions %s" % (ignore)
         for i in ignore:
             del fillrates[i]
     else:
-        print "No partitians ignored"
+        print "No partitions ignored"
 
-    # of the remaining parititans target the file system that is most full
+    # of the remaining parititons target the file system that is most full
     dangerzone = max(fillrates, key=fillrates.get)
     
     print "The File system on %s is currently %s percent full" % (dangerzone, fillrates[dangerzone])
 
 
     #boto to call cloudwatch and post dangerzone as a metric
-    dimes = {'host':hostname, 'partitian':dangerzone}
+    dimes = {'host':hostname, 'partition':dangerzone}
 
     CWconnect = boto.ec2.cloudwatch.CloudWatchConnection(aws_access_key_id='AKIAI2SSX2FGTWX7TB2Q', aws_secret_access_key='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')
 
