@@ -40,7 +40,8 @@ while True:
     if ignore:
         print "Ignoring partitions %s" % (ignore)
         for i in ignore:
-            del fillrates[i]
+            if i in fillrates:
+                del fillrates[i]
     else:
         print "No partitions ignored"
 
