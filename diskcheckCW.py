@@ -17,6 +17,8 @@ parser.add_option('-m', '--machine', type='string', action='store', dest='prodst
 ignore = opts.ignore
 prodstage = opts.prodstage
 
+arn = "arn:aws:sns:us-east-1:956924235346:testing-disk-check"
+alarmcheck = 0
 
 while True:
     # pass df to shell and capture output
@@ -58,4 +60,24 @@ while True:
 
     pushmetric = CWconnect.put_metric_data(namespace=str(prodstage), name='disk-fill', value=fillrates[dangerzone], unit='Percent', dimensions=dimes)
 
-    time.sleep(3600)
+    if alarmcheck == 0:
+        alarm = boto.ec2.cloudwatch.alarm.MetricAlarm(
+        name='Automated-Diskcheck-alarm',
+        metric='disk-fill',
+        namespace=str(prodstage),
+        statistic='Maximum',
+        comparison='>=',
+        description='testing alarm',
+        threshold=2,
+        period=60,
+        evaluation_periods=1,
+        dimensions=dimes,
+        alarm_actions=[arn])
+#        ok_actions = [TOPIC],
+#        insufficient_data_actions = [TOPIC]
+
+        CWconnect.put_metric_alarm(alarm)
+
+        alarmcheck += 1
+
+    time.sleep(60)
