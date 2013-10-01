@@ -59,8 +59,8 @@ while truth == 1: #!! can just say 'while True:'
         message = """From:RFZ Blog Machine %s\r\nTo: Eng %s\r\nSubject: %s\r\n
         This email is a friendly heads up that the disk on the Blog machine is nearly full. The partition or disk mounted at %s is currently %s%s full.""" % (sender, recievers, subject, opts.path, usage_int, stupid)
 
-        username = "rfzblogmachine"
-        password = "diskcheck"
+        username = 
+        password = 
         smtp = SMTP()
 
 

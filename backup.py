@@ -5,17 +5,15 @@
 
 import subprocess
 from optparse import OptionParser
-import Time
+import boto
 
-# loop to run weekely  
+  
+#pass tar to shell to create archive
 
-while True:
-
-    backup = subprocess.call(["tar -zcf /home/bobby/python-stuff/tarspot/backup.tar.gz /home/bobby/Pictures/badgerstuff/"], shell=True)
-
+backup = subprocess.call(["tar -zcf /home/bobby/python-stuff/tarspot/backup.tar.gz /home/bobby/Pictures/badgerstuff/"], shell=True)
 
 
-
+#push archive to S3
 
 
 
@@ -31,4 +29,5 @@ while True:
 
 
 
-    time.sleep(604800)
+
+    

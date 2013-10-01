@@ -12,13 +12,26 @@ import socket
 
 parser = OptionParser()
 parser.add_option('-i', '--ignore', type='string', action='append', dest='ignore', help='Partitions to be excluded from monitoring')
-parser.add_option('-m', '--machine', type='string', action='store', dest='prodstage', help='Prod or Stage designaton, should be either <infrastructure-prod> or <infrastructure-stage>')
+parser.add_option('-m', '--machine', type='string', action='store', dest='prodstage', help='Prod or Stage designaton, should be either <infrastructure-prod> or <infrastructure-staging>')
 (opts, args) = parser.parse_args()
 ignore = opts.ignore
 prodstage = opts.prodstage
 
-arn = "arn:aws:sns:us-east-1:956924235346:testing-disk-check"
-alarmcheck = 0
+arn = "none"
+prodarn = 
+stagearn = 
+alarmfirsttime = True
+metname = 'none'
+
+if prodstage == "infrastructure-prod":
+    arn = prodarn
+    metname = "infrastructure-prod-disk-fill"
+elif prodstage == "infrastructure-staging":
+    arn = stagearn
+    metname = "infrastructure-staging-disk-fill"
+else:
+    print "Machine option (-m) not properly set. Should be should be either <infrastructure-prod> or <infrastructure-staging>"
+    quit()
 
 while True:
     # pass df to shell and capture output
@@ -56,28 +69,27 @@ while True:
     #boto to call cloudwatch and post dangerzone as a metric
     dimes = {'host':hostname, 'partition':dangerzone}
 
-    CWconnect = boto.ec2.cloudwatch.CloudWatchConnection(aws_access_key_id='AKIAI2SSX2FGTWX7TB2Q', aws_secret_access_key='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')
+    CWconnect = boto.ec2.cloudwatch.CloudWatchConnection(aws_access_key_id=' ', aws_secret_access_key=' ')
 
     pushmetric = CWconnect.put_metric_data(namespace=str(prodstage), name='disk-fill', value=fillrates[dangerzone], unit='Percent', dimensions=dimes)
 
-    if alarmcheck == 0:
+    if alarmfirsttime == True:
         alarm = boto.ec2.cloudwatch.alarm.MetricAlarm(
-        name='Automated-Diskcheck-alarm',
+        name= metname + "-" + hostname,
         metric='disk-fill',
         namespace=str(prodstage),
         statistic='Maximum',
         comparison='>=',
-        description='testing alarm',
-        threshold=2,
-        period=60,
+        description='A disk partition is over 80% full, or has failed to check in.',
+        threshold=80,
+        period=3600,
         evaluation_periods=1,
         dimensions=dimes,
-        alarm_actions=[arn])
-#        ok_actions = [TOPIC],
-#        insufficient_data_actions = [TOPIC]
+        alarm_actions=[arn],
+        insufficient_data_actions=[arn])
 
         CWconnect.put_metric_alarm(alarm)
 
-        alarmcheck += 1
+        alarmfirsttime = False
 
-    time.sleep(60)
+    time.sleep(3600)
