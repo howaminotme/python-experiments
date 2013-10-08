@@ -12,7 +12,7 @@ import socket
 
 parser = OptionParser()
 parser.add_option('-i', '--ignore', type='string', action='append', dest='ignore', help='Partitions to be excluded from monitoring')
-parser.add_option('-m', '--machine', type='string', action='store', dest='prodstage', help='Prod or Stage designaton, should be either <infrastructure-prod> or <infrastructure-staging>')
+parser.add_option('-m', '--machine', type='string', action='store', dest='prodstage', help='Prod or Stage designaton, should be either <infrastructure-production> or <infrastructure-staging>')
 (opts, args) = parser.parse_args()
 ignore = opts.ignore
 prodstage = opts.prodstage
@@ -23,14 +23,14 @@ stagearn =
 alarmfirsttime = True
 metname = 'none'
 
-if prodstage == "infrastructure-prod":
+if prodstage == "infrastructure-production":
     arn = prodarn
     metname = "infrastructure-prod-disk-fill"
 elif prodstage == "infrastructure-staging":
     arn = stagearn
     metname = "infrastructure-staging-disk-fill"
 else:
-    print "Machine option (-m) not properly set. Should be should be either <infrastructure-prod> or <infrastructure-staging>"
+    print "Machine option (-m) not properly set. Should be should be either <infrastructure-production> or <infrastructure-staging>"
     quit()
 
 while True:
