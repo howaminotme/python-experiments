@@ -16,7 +16,6 @@ def clean(x):
 	dir = bits[0]
 	max_objects = int(bits[1])
 	ignore_objects = bits[2]
-	print bits
 
 	#Count non ignored files in target dir and store the count for evaluation 
 	look_for_stuff = subprocess.Popen(["ls -tr %s | grep -v %s | wc -l" % (dir,ignore_objects)], shell=True, stdout=subprocess.PIPE)
@@ -35,4 +34,4 @@ while True:
 		clean(i)
 
 
-	time.sleep(20)
+	time.sleep(3600)
