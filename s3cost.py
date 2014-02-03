@@ -15,8 +15,8 @@ target = opts.bucket
 verbose = opts.verb
 
 #AWS creds for S3 user 
-awsid = 'AKIAIZPOLLFCKHQEDZZQ'
-secid = 'PK+6ZYPMB+ixE+yWl6Op32ljvlpZu5ttQRpw3f4b'
+awsid = ''
+secid = ''
 sizes = {}
 costs = {}
 

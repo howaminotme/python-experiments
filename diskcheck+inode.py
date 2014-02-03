@@ -89,7 +89,7 @@ while True:
     #boto to call cloudwatch and post dangerzone as a metric
     dimes = {'host':hostname, 'partition':dangerzone}
 
-    CWconnect = boto.ec2.cloudwatch.CloudWatchConnection(aws_access_key_id='AKIAI2SSX2FGTWX7TB2Q', aws_secret_access_key='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')
+    CWconnect = boto.ec2.cloudwatch.CloudWatchConnection(aws_access_key_id='', aws_secret_access_key='')
 
     pushmetric = CWconnect.put_metric_data(namespace=str(prodstage), name='disk-fill', value=fillrates[dangerzone], unit='Percent', dimensions=dimes)
 
