@@ -20,10 +20,10 @@ prodstage = opts.prodstage
 #gloabal CloudWatch credentials 
 arn = "none"
 arni = "none"
-prodarn = "arn:aws:sns:us-east-1:956924235346:infrastructure-prod-disk-fill"
-prodarni = "arn:aws:sns:us-east-1:956924235346:infrastrucutre-prod-inode-fill"
-stagearn = "arn:aws:sns:us-east-1:956924235346:infrastructure-staging-disk-fill"
-stagearni = "arn:aws:sns:us-east-1:956924235346:infrastrucutre-staging-inode-fill"
+prodarn = 
+prodarni = 
+stagearn = 
+stagearni = 
 alarmfirsttime = True
 metname = 'none'
 metnamei = 'none'
