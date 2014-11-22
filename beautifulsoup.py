@@ -15,7 +15,6 @@ parser.add_option('-t', '--time', type='string', action='store', dest='time', he
 sleep_cycle = float(opts.time)
 
 
-now = datetime.datetime.now
 initial_link = ['http://blog.readyforzero.com/']
 set_of_links = set(initial_link)
 external_links = collections.defaultdict(set)
@@ -42,18 +41,35 @@ def crawler():
 
 
 def page_checker(x):
+	now = datetime.datetime.now()
 	page = random.sample(x,1)[0]
 	print "\n\nChecking returned status code on " + page
-	target_page = (requests.get(page, headers={'User-agent': 'Python_Spider'}))
+
+	try:
+		target_page = (requests.get(page, headers={'User-agent': 'Python_Spider'}))
+	except:
+		pass
+
 	external_logs = open('external_status_codes', 'a')
 	local_logs = open('blog_status_codes', 'a')
-
-	if target_page.status_code != 200:
+	
+	try:
 		if re.match("^http://blog.readyforzero.com", page):
-			local_logs.write(str(page)+' '+str(target_page.status_code)+' '+str(now))
+			if target_page.status_code != 200:
+				local_logs.write(str(page) + ' ' + str(target_page.status_code) + ' ' + str(now) + '\n')
+			else:
+				pass
+
 		else:
-			external_logs.write(str(page)+' '+str(target_page.status_code)+' '+str(now))
-			
+			if target_page.status_code != 200:
+				thing = (str(page) + ' ' + str(target_page.status_code) + ' ' + str(now) + ' ' + str(external_links[page]) + '\n')
+				external_logs.write(thing)
+			else:
+				pass
+
+	except:
+		pass
+
 	external_logs.close()
 	local_logs.close()
 
